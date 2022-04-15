@@ -19,7 +19,7 @@ import com.project.professorallocation.model.Department;
 public class DepartmentRepositoryTests {
 	
 	@Autowired
-	DepartmentRepository repository;
+	private DepartmentRepository repository;
 	
 	
 	@Test
@@ -34,7 +34,38 @@ public class DepartmentRepositoryTests {
 	
 	}
 	
+	@Test
+	public void create( ) {
+		Department departmentBeingCreated = new Department ();
+		departmentBeingCreated.setName("Departamento de Estatísticas");	
+		
+	departmentBeingCreated = repository.save(departmentBeingCreated);	
+
+	System.out.println(departmentBeingCreated);
 	
+	}
+	@Test
+	public void update() {
+		Department departmentBeingCreated = new Department ();
+		departmentBeingCreated.setId(5L);
+		departmentBeingCreated.setName("Departamento de Fiosioterapia");	
+		
+	departmentBeingCreated = repository.save(departmentBeingCreated);	
+	System.out.println(departmentBeingCreated);
 	
+	}
+	
+	@Test
+	public void delete() {
+		repository.deleteById(6L);
+	}
+	
+	@Test
+	public void findSpecicDepartment() {
+		
+		Department dept = repository.findById(6L).orElse(null);
+		
+		System.out.println(dept);
+	}
 
 }

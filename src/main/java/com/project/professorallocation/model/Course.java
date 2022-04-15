@@ -28,15 +28,15 @@ public class Course {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getNome() {
+	public String getName() {
 		return name;
 	}
-	public void setNome(String nome) {
-		this.name = nome;
+	public void setName(String name) {
+		this.name = name;
 	}
 	@Override
 	public String toString() {
-		return "Course [id=" + id + ", nome=" + name + "]";
+		return "Course [id=" + id + ", name=" + name + "]";
 	}
 	
 	
