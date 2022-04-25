@@ -56,4 +56,10 @@ public class AllocationRepositoryTests {
 		allocationsOfASpecificProfessor.forEach(System.out::println);
 
 	}
+	
+	@Test
+	public void deleteAll() {
+		
+		repository.deleteAllInBatch();
+	}
 }
