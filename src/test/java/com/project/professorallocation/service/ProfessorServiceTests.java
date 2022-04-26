@@ -30,8 +30,8 @@ public class ProfessorServiceTests {
 
 		Professor professor = new Professor();
 		professor.setId(1L);
-		professor.setName("José da Silva");
-		professor.setCpf("09123456795");
+		professor.setName("Joao");
+		professor.setCpf("09123456797");
 		professor.setDepartmentId(2L);
 
 		professor = service.update(professor);
