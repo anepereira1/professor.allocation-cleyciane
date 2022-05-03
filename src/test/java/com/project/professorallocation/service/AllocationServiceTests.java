@@ -24,8 +24,8 @@ public class AllocationServiceTests {
 	public void create() throws ParseException {
 		Allocation allocation = new Allocation();
 		allocation.setDayOfWeek(DayOfWeek.THURSDAY);
-		allocation.setProfessorId(2L);
-		allocation.setCourseID(2L);
+		allocation.setProfessorId(3L);
+		allocation.setCourseID(3L);
 		allocation.setStartHour(sdf.parse("19:00-0300"));
 		allocation.setEndHour(sdf.parse("21:00-0300"));
 
@@ -39,9 +39,9 @@ public class AllocationServiceTests {
 	public void update() throws ParseException {
 		
 		Allocation allocation = new Allocation();
-		allocation.setDayOfWeek(DayOfWeek.TUESDAY);
-		allocation.setProfessorId(1L);
-		allocation.setCourseID(1L);
+		allocation.setDayOfWeek(DayOfWeek.MONDAY);
+		allocation.setProfessorId(5L);
+		allocation.setCourseID(3L);
 		allocation.setStartHour(sdf.parse("19:00-0300"));
 		allocation.setEndHour(sdf.parse("21:00-0300"));
 

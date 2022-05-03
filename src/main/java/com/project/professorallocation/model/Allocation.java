@@ -17,51 +17,54 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.DateDeserializers;
 import com.fasterxml.jackson.databind.ser.std.DateSerializer;
 
-
 @Entity
 @Table(name = "allocation")
 public class Allocation {
-	
+	@JsonProperty(access = Access.READ_ONLY)
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Enumerated(EnumType.STRING)
-	@Column (nullable = false, name = "day")
+	@Column(nullable = false, name = "day")
 	private DayOfWeek dayOfWeek;
-	
-	@JsonFormat (pattern = "HH:mmZ", timezone = "America/Recife")
+
+	@JsonFormat(pattern = "HH:mmZ", timezone = "America/Recife")
 	@JsonSerialize(using = DateSerializer.class)
 	@JsonDeserialize(using = DateDeserializers.DateDeserializer.class)
 	@Temporal(TemporalType.TIME)
-	@Column (nullable = false)
+	@Column(nullable = false)
 	private Date startHour;
-	
-	@JsonFormat (pattern = "HH:mmZ", timezone = "America/Recife")
+
+	@JsonFormat(pattern = "HH:mmZ", timezone = "America/Recife")
 	@JsonSerialize(using = DateSerializer.class)
 	@JsonDeserialize(using = DateDeserializers.DateDeserializer.class)
 	@Temporal(TemporalType.TIME)
-	@Column (nullable = false)
+	@Column(nullable = false)
 	private Date endHour;
-	
-	@Column (name = "professor_id", nullable = false)
+
+	@JsonProperty(access = Access.WRITE_ONLY)
+	@Column(name = "professor_id", nullable = false)
 	private Long professorId;
-	
-	@Column (name = "course_id", nullable = false)
+
+	@JsonProperty(access = Access.WRITE_ONLY)
+	@Column(name = "course_id", nullable = false)
 	private Long CourseID;
-	
+
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "professor_id", nullable = false, insertable =  false, updatable = false)
+	@JoinColumn(name = "professor_id", nullable = false, insertable = false, updatable = false)
 	private Professor professor;
-	
+
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "course_id", nullable = false, insertable =  false, updatable = false)
-	private Course course; 
+	@JoinColumn(name = "course_id", nullable = false, insertable = false, updatable = false)
+	private Course course;
 
 	public Allocation() {
 		super();
@@ -119,8 +122,6 @@ public class Allocation {
 	public String toString() {
 		return "Allocation [id=" + id + ", dayOfWeek=" + dayOfWeek + ", startHour=" + startHour + ", endHour=" + endHour
 				+ ", professorId=" + professorId + ", CourseID=" + CourseID + "]";
-	} 
-	
-	
+	}
 
 }
