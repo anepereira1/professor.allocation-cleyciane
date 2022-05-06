@@ -37,8 +37,8 @@ public class AllocationService {
 			throw new RuntimeException("There is a time collision for this allocation");
 		}
 
-			allocation = repository.save(allocation);
-			
+		allocation = repository.save(allocation);
+
 		return allocation;
 	}
 
@@ -52,9 +52,14 @@ public class AllocationService {
 		return repository.findById(id).orElse(null);
 
 	}
-	
+
 	public List<Allocation> findByProfessorId(Long id) {
 		return repository.findByProfessorId(id);
+	}
+	
+	public List<Allocation> findByCourseId(Long id) {
+		
+		return repository.findByCourseId(id);
 	}
 
 	public List<Allocation> findAll() {
@@ -68,7 +73,7 @@ public class AllocationService {
 		List<Allocation> currentAllocations = repository.findByProfessorId(newAllocation.getProfessorId());
 
 		for (Allocation item : currentAllocations) {
-			if (hasCollision (item, newAllocation)) {
+			if (hasCollision(item, newAllocation)) {
 				collisionFound = true;
 				break;
 			}
