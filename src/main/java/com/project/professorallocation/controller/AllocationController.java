@@ -2,7 +2,6 @@ package com.project.professorallocation.controller;
 
 import java.util.List;
 
-import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.professorallocation.model.Allocation;
-import com.project.professorallocation.model.Course;
+
 import com.project.professorallocation.service.AllocationService;
 
 import io.swagger.annotations.ApiOperation;
@@ -86,6 +85,22 @@ public class AllocationController {
 
 	}
 
+	@PutMapping(path = "/{alloc_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.CREATED)
+	public ResponseEntity<Allocation> update(@PathVariable(name = "alloc_id") Long id, @RequestBody Allocation alloc) {
+		try {
+			alloc.setId(id);
+			Allocation item = service.update(alloc);
+			if (item == null) {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			} else {
+				return new ResponseEntity<>(item, HttpStatus.CREATED);
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
 	@DeleteMapping(path = "/(allocation_id)")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<Void> delete(@PathVariable(name = "allocation_id") Long id) {
@@ -94,11 +109,9 @@ public class AllocationController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
-	@PutMapping(path = "/{alloc_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Allocation> update(@PathVariable(name = "alloc_id") Long id, @RequestBody Allocation alloc){
-		
-	}
 }
 
-// curl -v --request POST --header "Content-Type: application/json" --header "Accept: application/json" --data-raw "{\"dayOfWeek\": \"THUSDAY\", \"startHour\":\"19:00-0300\", \"endHour\": \"21:00-0300\", \"professorId\":\"2\", \"courseId\":\"4\"}" "http://localhost:8080/allocations"
+// curl -v --request POST --header "Content-Type: application/json" --header "Accept: application/json" --data-raw "{\"dayOfWeek\": \"MONDAY\", \"startHour\": \"19:00-0300\", \"endHour\": \"21:00-0300\", \"professorId\": \"3\", \"courseID\": \"4\"}" "http://localhost:8080/allocations"
+
+// curl -v --request POST --header "Content-Type: application/json" --header "Accept: application/json" --data-raw "{\"dayOfWeek\": \"MONDAY\", \"startHour\": \"19:00-0300\", \"endHour\": \"21:00-0300\", \"professorId\": \"2\", \"courseID\": \"3\"}" "http://localhost:8080/allocations"
+
